@@ -1,6 +1,6 @@
 class Solution:
     def romanToInt(self, s: str) -> int:
-        roman = {
+        translations = {
             "I": 1,
             "V": 5,
             "X": 10,
@@ -9,17 +9,10 @@ class Solution:
             "D": 500,
             "M": 1000
         }
-    
-        res = 0
-        i = 0
-        while i < len(s)-1:
-            if roman[s[i]] < roman[s[i+1]]:
-                res += (roman[s[i+1]] - roman[s[i]])
-                i += 2
-            else:
-                res += roman[s[i]]
-                i += 1
-        
-        if i == len(s)-1:
-            res += roman[s[i]]
-        return res
+        number = 0
+        s = s.replace("IV", "IIII").replace("IX", "VIIII")
+        s = s.replace("XL", "XXXX").replace("XC", "LXXXX")
+        s = s.replace("CD", "CCCC").replace("CM", "DCCCC")
+        for char in s:
+            number += translations[char]
+        return number
